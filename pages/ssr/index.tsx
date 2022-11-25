@@ -1,8 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 import Link from "next/link";
-import { Article } from "../lib/types";
-import { NextPageWithLayout } from "./page";
-import MainLayout from "../components/MainLayout";
+import { Article } from "../../lib/types";
+import { NextPageWithLayout } from "../page";
+import MainLayout from "../../components/MainLayout";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
 const prisma = new PrismaClient();
@@ -11,12 +11,11 @@ const SSR: NextPageWithLayout = (props: InferGetServerSidePropsType<typeof getSe
   const articles: Article[] = props.articles;
   return (
     <>
-      {articles &&
-        articles.map((article, index) => (
-          <div key={index}>
-            <Link href={`/ssg/${article.id}`}>{article.title}</Link>
-          </div>
-        ))}
+      {articles.map((article, index) => (
+        <div key={index}>
+          <Link href={`/ssr/${article.id}`}>{article.title}</Link>
+        </div>
+      ))}
     </>
   );
 };
@@ -32,7 +31,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 };
 
 SSR.getLayout = (page) => {
-  return <MainLayout title='SSR'>{page}</MainLayout>;
+  return <MainLayout title="SSR">{page}</MainLayout>;
 };
 
 export default SSR;

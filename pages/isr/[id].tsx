@@ -4,16 +4,16 @@ import { Article } from "../../lib/types";
 
 const prisma = new PrismaClient();
 
-const SSGPage = (article: Article) => {
+const ISRPage = (article: Article) => {
   return (
-    <MainLayout title='SSG'>
+    <MainLayout title='ISR'>
       <h1>{article.title}</h1>
       <p>{article.description}</p>
     </MainLayout>
   );
 };
 
-export default SSGPage;
+export default ISRPage;
 
 export async function getStaticPaths() {
   const articles = await prisma.article.findMany({ select: { id: true } });
@@ -21,7 +21,7 @@ export async function getStaticPaths() {
     paths: articles.map(article => ({
       params: {id: article.id}
     })),
-    fallback: false
+    fallback: true
   };
 }
 
@@ -32,8 +32,10 @@ export const getStaticProps = async ({ params }: {params: Article}) =>{
 
   if (article) {
     return {
-      props: JSON.parse(JSON.stringify(article))
+      props: JSON.parse(JSON.stringify(article)),
+      revalidate: 10
     }
+    
   }
 
   return {
