@@ -1,5 +1,8 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Docs can be found here:
+[Web Rendering Technique CSR, SSR, SSG, and ISR](https://kitbunrong.vercel.app/blog/web-rendering-technique)
+
 ## Getting Started
 
 First, run the development server:
